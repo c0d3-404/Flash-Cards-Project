@@ -1,6 +1,7 @@
 import os
 from time import *
 from random import randint
+from PIL import Image
 
 # a clear console is a nice one
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -10,6 +11,7 @@ start = 0
 information = []
 Format = "%H:%M:%S"
 file_name = 'keywords.txt'
+
 
 # file handling
 with open(file_name, 'r') as f:

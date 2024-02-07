@@ -1,3 +1,4 @@
+from msilib.schema import Icon
 from customtkinter import *
 from CTkMessagebox import CTkMessagebox
 from funcs import *
@@ -11,7 +12,7 @@ def Run(tk):
 
 
 def loading_window(tk, Qnum=1, ArrayValue=0):
-    msg = CTkMessagebox(title="Continue?", message="The quiz starts immidiatly.\n Do you want to continue?",
+    msg = CTkMessagebox(title="Continue?", message="The quiz starts immediately.\n Do you want to continue?",
                         icon="question", option_1="No", option_2="Yes")
     response = msg.get()
 
@@ -26,6 +27,8 @@ def question_widow(tk, Qnum=1, ArrayValue=0):
     hide(tk)
     Quiz = CTkToplevel()
     Quiz.geometry("500x400")
+    Quiz.iconbitmap("icons/icon.ico", "icons/icon.ico")
+    Quiz.title(f"F.C.Q")
 
     Title = CTkLabel(master=Quiz, text=f"Question {Qnum}",
                      font=("Arial", 20))
@@ -82,6 +85,8 @@ def Menu(tk=None):
     if app == None:
         app = CTk()
         app.geometry("500x400")
+        app.iconbitmap("icon.ico", "icons/icon.ico")
+        app.title("Menu")
         set_appearance_mode("dark")
         Title = CTkLabel(master=app, text="Flash Card Project",
                          font=("Arial", 40))
