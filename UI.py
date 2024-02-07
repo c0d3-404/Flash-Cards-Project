@@ -1,17 +1,16 @@
-from msilib.schema import Icon
+from funcs import *
 from customtkinter import *
 from CTkMessagebox import CTkMessagebox
-from funcs import *
 
 
 def Run(tk):
     # starts the question sequence
     Qselection = randint(0, len(information)-1)
-    loading_window(tk, ArrayValue=Qselection)
+    loading_popup(tk, ArrayValue=Qselection)
     start_timer()
 
 
-def loading_window(tk, Qnum=1, ArrayValue=0):
+def loading_popup(tk, Qnum=1, ArrayValue=0):
     msg = CTkMessagebox(title="Continue?", message="The quiz starts immediately.\n Do you want to continue?",
                         icon="question", option_1="No", option_2="Yes")
     response = msg.get()
@@ -28,7 +27,7 @@ def question_widow(tk, Qnum=1, ArrayValue=0):
     Quiz = CTkToplevel()
     Quiz.geometry("500x400")
     Quiz.iconbitmap("icons/icon.ico", "icons/icon.ico")
-    Quiz.title(f"F.C.Q")
+    Quiz.title("F.C.Q")
 
     Title = CTkLabel(master=Quiz, text=f"Question {Qnum}",
                      font=("Arial", 20))
@@ -76,9 +75,6 @@ def Answer_Buttons(Buttton_Num, AB1Text, AB2Text, AB3Text, question):
             pass
 
 
-app = None
-
-
 def Menu(tk=None):
     global app
     # makes app unless app is made then it reveals it.
@@ -88,6 +84,7 @@ def Menu(tk=None):
         app.iconbitmap("icon.ico", "icons/icon.ico")
         app.title("Menu")
         set_appearance_mode("dark")
+
         Title = CTkLabel(master=app, text="Flash Card Project",
                          font=("Arial", 40))
         PlayBtn = CTkButton(master=app, text="Start",
@@ -96,6 +93,7 @@ def Menu(tk=None):
                               fg_color="#AA4203", text_color="#000000", command=changeFile)
         ExitBtn = CTkButton(master=app, text="Exit",
                             fg_color="#FF0000", text_color="#000000", command=app.quit)
+
         Title.place(relx=0.5, rely=0.05, anchor="center")
         PlayBtn.place(relx=0.5, rely=0.4, anchor="center")
         Changebtn.place(relx=0.5, rely=0.5, anchor="center")
