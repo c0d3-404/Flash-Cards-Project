@@ -1,6 +1,10 @@
+from email.policy import default
+from optparse import Values
 from funcs import *
 from customtkinter import *
 from CTkMessagebox import CTkMessagebox
+
+file_name = 'keywords.txt'
 
 
 def Run(tk):
@@ -88,7 +92,40 @@ def Answer_Buttons(Buttton_Num, AB1Text, AB2Text, AB3Text, question):
             pass
 
 
+def changeFile():
+    # add change file code here
+    files = getFiles()
+    filePicker(files)
+
+
+def filePicker(files):
+    hide(app)
+    FilePicker = CTkToplevel()
+    FilePicker.geometry("500x400")
+    FilePicker.iconbitmap("icons/icon.ico", "icons/icon.ico")
+    FilePicker.title("FIle Picker")
+
+    Title = CTkLabel(
+        master=FilePicker, text="Which file would you like to load?", font=("Arial", 10))
+    Title.place(relx=0.5, rely=0.05, anchor="center")
+
+    Options = CTkComboBox(FilePicker, values=files,
+                          variable="Unselected", command=changeHandler)  # type: ignore
+    Options.place(relx=0.5, rely=0.5, anchor="center")
+
+    ExitBtn = CTkButton(master=FilePicker, text="Menu",
+                        fg_color="#FF0000", text_color="#000000", command=lambda: Menu(FilePicker)).place(relx=0.5, rely=0.7, anchor="center")
+
+
+def changeHandler(value):
+    global file_name
+    file_name = value
+    return file_name
+
+
 def Menu(tk=None):
+    global information
+    information = FileHandling(file_name)
     global app
     # makes app unless app is made then it reveals it.
     if app == None:

@@ -1,6 +1,7 @@
 from time import *
 from random import randint
 from PIL import Image
+import glob
 import os
 
 # a clear console is a nice one
@@ -10,26 +11,23 @@ os.system('cls' if os.name == 'nt' else 'clear')
 start = 0
 information = []
 Format = "%H:%M:%S"
-file_name = 'keywords.txt'
 app = None
 Time = 0
 
-# file handling
-with open(file_name, 'r') as f:
-    temp = f.read().split("\n")
 
+def FileHandling(filename):
+    # file handling
+    information = []
+    with open(filename, 'r') as f:
+        temp = f.read().split("\n")
 
-for i in range(0, len(temp), 2):
-    temp_list = []
-    # makes 2d array
-    temp_list.append(temp[i].capitalize())
-    temp_list.append(temp[i+1].capitalize())
-    information.append(temp_list)
-
-
-def changeFile():
-    # add change file code here
-    pass
+    for i in range(0, len(temp), 2):
+        temp_list = []
+        # makes 2d array
+        temp_list.append(temp[i].capitalize())
+        temp_list.append(temp[i+1].capitalize())
+        information.append(temp_list)
+    return information
 
 
 def start_timer():
@@ -45,3 +43,11 @@ def get_timer():
     Timer = gmtime(now)
     Time = strftime(Format, Timer)
     return Time
+
+
+def getFiles():
+    temp = []
+    os.chdir("../Code")
+    for file in glob.glob("*.txt"):
+        temp.append(file)
+    return temp
