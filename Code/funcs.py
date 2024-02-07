@@ -12,7 +12,7 @@ information = []
 Format = "%H:%M:%S"
 file_name = 'keywords.txt'
 app = None
-
+Time = 0
 
 # file handling
 with open(file_name, 'r') as f:
