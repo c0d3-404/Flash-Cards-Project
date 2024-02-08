@@ -1,2 +1,3 @@
 from UI import *
+
 Menu()
