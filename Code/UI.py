@@ -31,6 +31,39 @@ def question_widow(tk, Qnum=1, ArrayValue=0):
     Quiz.geometry("500x400")
     Quiz.iconbitmap("icons/icon.ico", "icons/icon.ico")
     Quiz.title("F.C.Q")
+
+    ab1 = str("Empty")
+    ab2 = str("Empty")
+    ab3 = str("Empty")
+    value1 = randint(0, len(information)-1)
+    value2 = randint(0, len(information)-1)
+
+    match randint(1, 3):
+        case 1:
+            ab1 = information[ArrayValue][1]
+            while information[value1][1] == information[ArrayValue][1]:
+                value1 = randint(0, len(information)-1)
+            while information[value2][1] == information[ArrayValue][1] or information[value2][1] == information[value1][1]:
+                value2 = randint(0, len(information)-1)
+            ab2 = information[value1][1]
+            ab3 = information[value2][1]
+        case 2:
+            ab2 = information[ArrayValue][1]
+            while information[value1][1] == information[ArrayValue][1]:
+                value1 = randint(0, len(information)-1)
+            while information[value2][1] == information[ArrayValue][1] or information[value2][1] == information[value1][1]:
+                value2 = randint(0, len(information)-1)
+            ab1 = information[value1][1]
+            ab3 = information[value2][1]
+        case 3:
+            ab3 = information[ArrayValue][1]
+            while information[value1][1] == information[ArrayValue][1]:
+                value1 = randint(0, len(information)-1)
+            while information[value2][1] == information[ArrayValue][1] or information[value2][1] == information[value1][1]:
+                value2 = randint(0, len(information)-1)
+            ab1 = information[value1][1]
+            ab2 = information[value2][1]
+
     start_timer()
     Title = CTkLabel(master=Quiz, text=f"Question {Qnum}",
                      font=("Arial", 20))
@@ -41,17 +74,17 @@ def question_widow(tk, Qnum=1, ArrayValue=0):
     TimerLabel.place(relx=0.8, rely=0.05, anchor="center")
     question = CTkLabel(master=Quiz, text=information[ArrayValue][0], font=(
         "Arial", 15)).place(relx=0.5, rely=0.15, anchor="center")
-    Abutton1 = CTkButton(master=Quiz, text="AB1", command=lambda: Answer_Buttons(
+    Abutton1 = CTkButton(master=Quiz, text=ab1, command=lambda: Answer_Buttons(  # type: ignore
         1, Abutton1.cget("text"),
         Abutton2.cget("text"), Abutton3.cget("text"), ArrayValue))
     Abutton1.place(relx=0.5, rely=0.3, anchor="center")
 
-    Abutton2 = CTkButton(master=Quiz, text="AB2", command=lambda: Answer_Buttons(
+    Abutton2 = CTkButton(master=Quiz, text=ab2, command=lambda: Answer_Buttons(  # type: ignore
         2, Abutton1.cget("text"),
         Abutton2.cget("text"), Abutton3.cget("text"), ArrayValue))
     Abutton2.place(relx=0.5, rely=0.4, anchor="center")
 
-    Abutton3 = CTkButton(master=Quiz, text="AB3", command=lambda: Answer_Buttons(
+    Abutton3 = CTkButton(master=Quiz, text=ab3, command=lambda: Answer_Buttons(  # type: ignore
         3, Abutton1.cget("text"),
         Abutton2.cget("text"), Abutton3.cget("text"), ArrayValue))
     Abutton3.place(relx=0.5, rely=0.5, anchor="center")
@@ -83,11 +116,20 @@ def show(tk):
 def Answer_Buttons(Buttton_Num, AB1Text, AB2Text, AB3Text, question):
     match Buttton_Num:
         case 1:
-            print(AB1Text, AB2Text, AB3Text)
+            if AB1Text == information[question][1]:
+                print("correct")
+            else:
+                print(information[question][1])
         case 2:
-            print(AB2Text, AB3Text, AB1Text)
+            if AB2Text == information[question][1]:
+                print("correct")
+            else:
+                print(information[question][1])
         case 3:
-            print(AB3Text, AB1Text, AB2Text)
+            if AB3Text == information[question][1]:
+                print("correct")
+            else:
+                print(information[question][1])
         case _:
             pass
 
