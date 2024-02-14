@@ -1,5 +1,5 @@
 from time import *
-from random import randint
+from random import *
 from PIL import Image
 import glob
 import os
@@ -18,7 +18,7 @@ Time = 0
 def FileHandling(filename):
     # file handling
     information = []
-    with open(filename, 'r') as f:
+    with open("Text/"+filename, 'r') as f:
         temp = f.read().split("\n")
 
     for i in range(0, len(temp), 2):
@@ -47,7 +47,7 @@ def get_timer():
 
 def getFiles():
     temp = []
-    os.chdir("../Code")
+    os.chdir("../Code/Text")
     for file in glob.glob("*.txt"):
         temp.append(file)
     return temp

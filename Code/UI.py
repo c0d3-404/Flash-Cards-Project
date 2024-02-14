@@ -64,7 +64,6 @@ def question_widow(tk=None, Qnum=1, ArrayValue=0):
         Quiz = CTkToplevel()
         Quiz.geometry("500x400+750+300")
         Quiz.resizable(False, False)
-        Quiz.iconbitmap("icons/icon.ico", "icons/icon.ico")
         Quiz.title("F.C.Q")
         start_timer()
         correct = 0
@@ -200,7 +199,6 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
                                   hover_color="#005500", text_color="#000000", state="disabled")
                     AB1.configure(fg_color=("#550000"),
                                   hover_color="#550000", text_color="#000000", state="disabled")
-
     ContBtn.configure(state="normal")
 
 
@@ -215,9 +213,7 @@ def filePicker(files):
     FilePicker = CTkToplevel()
     FilePicker.geometry("500x400")
     FilePicker.resizable(False, False)
-    FilePicker.iconbitmap("icons/icon.ico", "icons/icon.ico")
     FilePicker.title("FIle Picker")
-
     Title = CTkLabel(
         master=FilePicker, text="Which file would you like to load?", font=("Arial", 10))
     Title.place(relx=0.5, rely=0.05, anchor="center")
@@ -233,6 +229,7 @@ def filePicker(files):
 def changeHandler(value):
     global file_name
     file_name = value
+    print(value)
     return file_name
 
 
