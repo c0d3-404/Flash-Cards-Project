@@ -3,7 +3,6 @@ from customtkinter import *
 from CTkMessagebox import CTkMessagebox
 
 file_name = 'keywords.txt'
-Quiz = None
 correct = 0
 
 
@@ -60,56 +59,61 @@ def question_widow(tk=None, Qnum=1, ArrayValue=0):
                 value2 = randint(0, len(information)-1)
             ab1 = information[value1][1]
             ab2 = information[value2][1]
-
-    # makes the question window
-    Quiz = CTkToplevel()
-    Quiz.geometry("500x400+750+300")
-    Quiz.iconbitmap("icons/icon.ico", "icons/icon.ico")
-    Quiz.title("F.C.Q")
-    start_timer()
-    correct = 0
+    if Qnum == 1:
+        # makes the question window
+        Quiz = CTkToplevel()
+        Quiz.geometry("500x400+750+300")
+        Quiz.resizable(False, False)
+        Quiz.iconbitmap("icons/icon.ico", "icons/icon.ico")
+        Quiz.title("F.C.Q")
+        start_timer()
+        correct = 0
+    TimerLabel = CTkLabel(master=Quiz, text=str(
+        get_timer()), font=("Arial", 10))
+    if Qnum != 1:
+        for widgets in Quiz.winfo_children():
+            if widgets == TimerLabel:
+                continue
+            widgets.destroy()
     Title = CTkLabel(master=Quiz, text=f"Question {Qnum}",
                      font=("Arial", 20))
     Title.place(relx=0.5, rely=0.05, anchor="center")
 
-    TimerLabel = CTkLabel(master=Quiz, text=str(
-        get_timer()), font=("Arial", 10))
     TimerLabel.place(relx=0.8, rely=0.05, anchor="center")
     question = CTkLabel(master=Quiz, text=information[ArrayValue][0], font=(
         "Arial", 15)).place(relx=0.5, rely=0.15, anchor="center")
-    Abutton1 = CTkButton(master=Quiz, text=ab1, command=lambda: Answer_Buttons(  # type: ignore
+    Abutton1 = CTkButton(master=Quiz, text=ab1, command=lambda: Answer_Buttons(
         1, Abutton1, Abutton2, Abutton3, ContBtn, ArrayValue))
     Abutton1.place(relx=0.5, rely=0.3, anchor="center")
 
-    Abutton2 = CTkButton(master=Quiz, text=ab2, command=lambda: Answer_Buttons(  # type: ignore
+    Abutton2 = CTkButton(master=Quiz, text=ab2, command=lambda: Answer_Buttons(
         2, Abutton1, Abutton2, Abutton3, ContBtn, ArrayValue))
     Abutton2.place(relx=0.5, rely=0.4, anchor="center")
 
-    Abutton3 = CTkButton(master=Quiz, text=ab3, command=lambda: Answer_Buttons(  # type: ignore
+    Abutton3 = CTkButton(master=Quiz, text=ab3, command=lambda: Answer_Buttons(
         3, Abutton1, Abutton2, Abutton3, ContBtn, ArrayValue))
     Abutton3.place(relx=0.5, rely=0.5, anchor="center")
 
     ContBtn = CTkButton(master=Quiz, text="Continue",
-                        fg_color="#555555", text_color="#000000", command=lambda: cont(Quiz, Qnum, Title, Abutton1, Abutton2, Abutton3, ab1, ab2, ab3),  state="disabled")
+                        fg_color="#555555", text_color="#000000", command=lambda: cont(Quiz, Qnum),  state="disabled")
     ContBtn.place(relx=0.5, rely=0.6, anchor="center")
     ExitBtn = CTkButton(master=Quiz, text="Exit",
                         fg_color="#550000", text_color="#000000", command=lambda: Menu(Quiz)).place(relx=0.5, rely=0.7, anchor="center")
     Quiz.after(1000, update, Quiz, TimerLabel)
-    # type: ignore
 
 
 def update(Quiz, TimerLabel):
     TimeLabel = get_timer()
-    Quiz.after(1000, update, Quiz, TimerLabel)
-    TimerLabel.configure(text=str(TimeLabel))
+    try:
+        Quiz.after(1000, update, Quiz, TimerLabel)
+        TimerLabel.configure(text=str(TimeLabel))
+    except:
+        pass
 
 
-def cont(tk, Qnum, Title, Abutton1, Abutton2, Abutton3, ab1, ab2, ab3):
+def cont(tk, Qnum):
     num = Qnum + 1
-    Title.configure(text=f"Question {Qnum}")  # type: ignore
-    Abutton1.configure(text=ab1)  # type: ignore
-    Abutton2.configure(text=ab2)  # type: ignore
-    Abutton3.configure(text=ab3)
+    question_widow(None, num, randint(0, len(information)-1))
 
 
 def hide(tk):
@@ -210,6 +214,7 @@ def filePicker(files):
     hide(app)
     FilePicker = CTkToplevel()
     FilePicker.geometry("500x400")
+    FilePicker.resizable(False, False)
     FilePicker.iconbitmap("icons/icon.ico", "icons/icon.ico")
     FilePicker.title("FIle Picker")
 
@@ -240,6 +245,7 @@ def Menu(tk=None):
     if app == None:
         app = CTk()
         app.geometry("500x400+750+300")
+        app.resizable(False, False)
         app.iconbitmap("icon.ico", "icons/icon.ico")
         app.title("Menu")
         set_appearance_mode("dark")
