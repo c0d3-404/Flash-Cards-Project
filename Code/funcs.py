@@ -6,7 +6,6 @@ import os
 
 # a clear console is a nice one
 os.system('cls' if os.name == 'nt' else 'clear')
-
 # defines useful varibles
 start = 0
 information = []
