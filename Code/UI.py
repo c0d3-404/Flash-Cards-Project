@@ -1,14 +1,16 @@
 from funcs import *
+from funcs import information as info
 from customtkinter import *
 from CTkMessagebox import CTkMessagebox
 
-file_name = 'keywords.txt'
+file_name_old = 'keywords.txt'
+file_name = './Text/'+file_name_old
 correct = 0
 
 
 def Run(tk):
     # starts the question sequence
-    Qselection = randint(0, len(information)-1)
+    Qselection = randint(0, len(info)-1)
     loading_popup(tk, ArrayValue=Qselection)
 
 
@@ -31,34 +33,34 @@ def question_widow(tk=None, Qnum=1, ArrayValue=0):
     ab1 = str("Empty")
     ab2 = str("Empty")
     ab3 = str("Empty")
-    value1 = randint(0, len(information)-1)
-    value2 = randint(0, len(information)-1)
+    value1 = randint(0, len(info)-1)
+    value2 = randint(0, len(info)-1)
 
     match randint(1, 3):
         case 1:
-            ab1 = information[ArrayValue][1]
-            while information[value1][1] == information[ArrayValue][1]:
-                value1 = randint(0, len(information)-1)
-            while information[value2][1] == information[ArrayValue][1] or information[value2][1] == information[value1][1]:
-                value2 = randint(0, len(information)-1)
-            ab2 = information[value1][1]
-            ab3 = information[value2][1]
+            ab1 = info[ArrayValue][1]
+            while info[value1][1] == info[ArrayValue][1]:
+                value1 = randint(0, len(info)-1)
+            while info[value2][1] == info[ArrayValue][1] or info[value2][1] == info[value1][1]:
+                value2 = randint(0, len(info)-1)
+            ab2 = info[value1][1]
+            ab3 = info[value2][1]
         case 2:
-            ab2 = information[ArrayValue][1]
-            while information[value1][1] == information[ArrayValue][1]:
-                value1 = randint(0, len(information)-1)
-            while information[value2][1] == information[ArrayValue][1] or information[value2][1] == information[value1][1]:
-                value2 = randint(0, len(information)-1)
-            ab1 = information[value1][1]
-            ab3 = information[value2][1]
+            ab2 = info[ArrayValue][1]
+            while info[value1][1] == info[ArrayValue][1]:
+                value1 = randint(0, len(info)-1)
+            while info[value2][1] == info[ArrayValue][1] or info[value2][1] == info[value1][1]:
+                value2 = randint(0, len(info)-1)
+            ab1 = info[value1][1]
+            ab3 = info[value2][1]
         case 3:
-            ab3 = information[ArrayValue][1]
-            while information[value1][1] == information[ArrayValue][1]:
-                value1 = randint(0, len(information)-1)
-            while information[value2][1] == information[ArrayValue][1] or information[value2][1] == information[value1][1]:
-                value2 = randint(0, len(information)-1)
-            ab1 = information[value1][1]
-            ab2 = information[value2][1]
+            ab3 = info[ArrayValue][1]
+            while info[value1][1] == info[ArrayValue][1]:
+                value1 = randint(0, len(info)-1)
+            while info[value2][1] == info[ArrayValue][1] or info[value2][1] == info[value1][1]:
+                value2 = randint(0, len(info)-1)
+            ab1 = info[value1][1]
+            ab2 = info[value2][1]
     if Qnum == 1:
         # makes the question window
         Quiz = CTkToplevel()
@@ -79,7 +81,7 @@ def question_widow(tk=None, Qnum=1, ArrayValue=0):
     Title.place(relx=0.5, rely=0.05, anchor="center")
 
     TimerLabel.place(relx=0.8, rely=0.05, anchor="center")
-    question = CTkLabel(master=Quiz, text=information[ArrayValue][0], font=(
+    question = CTkLabel(master=Quiz, text=info[ArrayValue][0], font=(
         "Arial", 15)).place(relx=0.5, rely=0.15, anchor="center")
     Abutton1 = CTkButton(master=Quiz, text=ab1, command=lambda: Answer_Buttons(
         1, Abutton1, Abutton2, Abutton3, ContBtn, ArrayValue))
@@ -112,7 +114,7 @@ def update(Quiz, TimerLabel):
 
 def cont(tk, Qnum):
     num = Qnum + 1
-    question_widow(None, num, randint(0, len(information)-1))
+    question_widow(None, num, randint(0, len(info)-1))
 
 
 def hide(tk):
@@ -132,7 +134,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
     match Buttton_Num:
         case 1:
             global correct
-            if AB1.cget("text") == information[question][1]:
+            if AB1.cget("text") == info[question][1]:
                 correct += 1
                 AB1.configure(fg_color="#005500",
                               hover_color="#005500", text_color="#000000", state="disabled")
@@ -143,7 +145,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
             else:
                 AB1.configure(fg_color=("#550000"),
                               hover_color="#550000", text_color="#000000", state="disabled")
-                if AB2.cget("text") == information[question][1]:
+                if AB2.cget("text") == info[question][1]:
                     AB2.configure(fg_color=("#005500"),
                                   hover_color="#005500", text_color="#000000", state="disabled")
                     AB3.configure(fg_color=("#550000"),
@@ -155,7 +157,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
                                   hover_color="#550000", text_color="#000000", state="disabled")
 
         case 2:
-            if AB2.cget("text") == information[question][1]:
+            if AB2.cget("text") == info[question][1]:
                 correct += 1
                 AB2.configure(fg_color=("#005500"),
                               hover_color="#005500", text_color="#000000", state="disabled")
@@ -166,7 +168,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
             else:
                 AB2.configure(fg_color=("#550000"),
                               hover_color="#550000", text_color="#000000", state="disabled")
-                if AB1.cget("text") == information[question][1]:
+                if AB1.cget("text") == info[question][1]:
                     AB1.configure(fg_color=("#005500"),
                                   hover_color="#005500", text_color="#000000", state="disabled")
                     AB3.configure(fg_color=("#550000"),
@@ -178,7 +180,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
                                   hover_color="#550000", text_color="#000000", state="disabled")
 
         case 3:
-            if AB3.cget("text") == information[question][1]:
+            if AB3.cget("text") == info[question][1]:
                 correct += 1
                 AB3.configure(fg_color=("#005500"),
                               hover_color="#005500", text_color="#000000", state="disabled")
@@ -189,7 +191,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
             else:
                 AB3.configure(fg_color=("#550000"),
                               hover_color="#550000", text_color="#000000", state="disabled")
-                if AB1.cget("text") == information[question][1]:
+                if AB1.cget("text") == info[question][1]:
                     AB1.configure(fg_color=("#005500"),
                                   hover_color="#005500", text_color="#000000", state="disabled")
                     AB2.configure(fg_color=("#550000"),
@@ -235,15 +237,15 @@ def changeHandler(value):
 
 def Menu(tk=None):
     print(correct)
-    global information
-    information = FileHandling(file_name)
+    global info
+    info = FileHandling(file_name)
     global app
     # makes app unless app is made then it reveals it.
     if app == None:
         app = CTk()
         app.geometry("500x400+750+300")
         app.resizable(False, False)
-        app.iconbitmap("icon.ico", "icons/icon.ico")
+        app.iconbitmap("./icons/icon.ico")
         app.title("Menu")
         set_appearance_mode("dark")
 
