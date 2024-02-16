@@ -47,18 +47,18 @@ def get_timer():
     Time = strftime(Format, Timer)
     return Time
 
-
 def getFiles():
     temp = []
     current_dir = os.path.dirname(os.path.realpath(__file__))
-
+    print(current_dir)
+    
     text_dir = os.path.join(current_dir, "Text")
     if os.path.exists(text_dir):
         os.chdir(text_dir)
     else:
         os.chdir(current_dir)
-
+    
     for file in glob.glob("*.txt"):
         temp.append(file)
-
+        
     return temp
