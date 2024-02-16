@@ -213,7 +213,7 @@ def changeFile():
 def filePicker(files):
     hide(app)
     FilePicker = CTkToplevel()
-    FilePicker.geometry("500x400")
+    FilePicker.geometry("500x400+750+300")
     FilePicker.resizable(False, False)
     FilePicker.title("FIle Picker")
     Title = CTkLabel(
