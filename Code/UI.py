@@ -290,7 +290,3 @@ def Menu(tk=None):
             tk.destroy()
         except:
             pass
-
-
-def escape():
-    app.quit
