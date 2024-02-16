@@ -76,6 +76,7 @@ def question_widow(tk=None, Qnum=1, ArrayValue=0):
             if widgets == TimerLabel:
                 continue
             widgets.destroy()
+    Quiz.bind("<Escape>", lambda x: sys.exit())
     Title = CTkLabel(master=Quiz, text=f"Question {Qnum}",
                      font=("Arial", 20))
     Title.place(relx=0.5, rely=0.05, anchor="center")
@@ -113,8 +114,12 @@ def update(Quiz, TimerLabel):
 
 
 def cont(tk, Qnum):
-    num = Qnum + 1
-    question_widow(None, num, randint(0, len(info)-1))
+    num = Qnum
+    if num >= 9:
+        endScreen(tk)
+    else:
+        num += 1
+        question_widow(None, num, randint(0, len(info)-1))
 
 
 def hide(tk):
@@ -204,6 +209,19 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
     ContBtn.configure(state="normal")
 
 
+def endScreen(tk=None):
+    hide(tk)
+    EndScreen = CTkToplevel()
+    EndScreen.geometry("500x400+750+300")
+    EndScreen.resizable(False, False)
+    EndScreen.title("Quiz End")
+    EndScreen.bind("<Escape>", lambda x: sys.exit())
+    Title = CTkLabel(EndScreen, text='End screen', font=("Arial", 10))
+    Title.place(relx=0.5, rely=0.05, anchor="center")
+    ExitBtn = CTkButton(master=EndScreen, text="Menu",
+                        fg_color="#550000", text_color="#000000", command=lambda: Menu(EndScreen)).place(relx=0.5, rely=0.7, anchor="center")
+
+
 def changeFile():
     # add change file code here
     files = getFiles()
@@ -215,7 +233,8 @@ def filePicker(files):
     FilePicker = CTkToplevel()
     FilePicker.geometry("500x400+750+300")
     FilePicker.resizable(False, False)
-    FilePicker.title("FIle Picker")
+    FilePicker.title("File Picker")
+    FilePicker.bind("<Escape>", lambda x: sys.exit())
     Title = CTkLabel(
         master=FilePicker, text="Which file would you like to load?", font=("Arial", 10))
     Title.place(relx=0.5, rely=0.05, anchor="center")
@@ -231,7 +250,7 @@ def filePicker(files):
 def changeHandler(value):
     global file_name
     file_name = value
-    print(value)
+
     return file_name
 
 
@@ -248,6 +267,7 @@ def Menu(tk=None):
         app.iconbitmap("./icons/icon.ico")
         app.title("Menu")
         set_appearance_mode("dark")
+        app.bind("<Escape>", lambda x: sys.exit())
 
         Title = CTkLabel(master=app, text="Flash Card Project",
                          font=("Arial", 40))
@@ -270,3 +290,7 @@ def Menu(tk=None):
             tk.destroy()
         except:
             pass
+
+
+def escape():
+    app.quit

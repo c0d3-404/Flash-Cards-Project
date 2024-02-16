@@ -18,10 +18,8 @@ Time = 0
 def FileHandling(filename):
     # file handling
     information = []
-    print(os.getcwd())
     with open(filename, 'r') as f:
         temp = f.read().split("\n")
-        print(temp)
 
         for i in range(0, len(temp), 2):
             temp_list = []
@@ -29,7 +27,7 @@ def FileHandling(filename):
             temp_list.append(temp[i].capitalize())
             temp_list.append(temp[i+1].capitalize())
             information.append(temp_list)
-            print(information)
+
         return information
 
 
@@ -47,18 +45,18 @@ def get_timer():
     Time = strftime(Format, Timer)
     return Time
 
+
 def getFiles():
     temp = []
     current_dir = os.path.dirname(os.path.realpath(__file__))
-    print(current_dir)
-    
+
     text_dir = os.path.join(current_dir, "Text")
     if os.path.exists(text_dir):
         os.chdir(text_dir)
     else:
         os.chdir(current_dir)
-    
+
     for file in glob.glob("*.txt"):
         temp.append(file)
-        
+
     return temp
