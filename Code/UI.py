@@ -142,70 +142,73 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
             if AB1.cget("text") == info[question][1]:
                 correct += 1
                 AB1.configure(fg_color="#005500",
-                              hover_color="#005500", text_color="#000000", state="disabled")
+                              hover_color="#005500", text_color="#000000")
                 AB2.configure(fg_color=("#550000"),
-                              hover_color="#550000", text_color="#000000", state="disabled")
+                              hover_color="#550000", text_color="#000000")
                 AB3.configure(fg_color=("#550000"),
-                              hover_color="#550000", text_color="#000000", state="disabled")
+                              hover_color="#550000", text_color="#000000")
             else:
                 AB1.configure(fg_color=("#550000"),
-                              hover_color="#550000", text_color="#000000", state="disabled")
+                              hover_color="#550000", text_color="#000000")
                 if AB2.cget("text") == info[question][1]:
                     AB2.configure(fg_color=("#005500"),
-                                  hover_color="#005500", text_color="#000000", state="disabled")
+                                  hover_color="#005500", text_color="#000000")
                     AB3.configure(fg_color=("#550000"),
-                                  hover_color="#550000", text_color="#000000", state="disabled")
+                                  hover_color="#550000", text_color="#000000")
                 else:
                     AB3.configure(fg_color=("#005500"),
-                                  hover_color="#005500", text_color="#000000", state="disabled")
+                                  hover_color="#005500", text_color="#000000")
                     AB2.configure(fg_color=("#550000"),
-                                  hover_color="#550000", text_color="#000000", state="disabled")
+                                  hover_color="#550000", text_color="#000000")
 
         case 2:
             if AB2.cget("text") == info[question][1]:
                 correct += 1
                 AB2.configure(fg_color=("#005500"),
-                              hover_color="#005500", text_color="#000000", state="disabled")
+                              hover_color="#005500", text_color="#000000")
                 AB1.configure(fg_color=("#550000"),
-                              hover_color="#550000", text_color="#000000", state="disabled")
+                              hover_color="#550000", text_color="#000000")
                 AB3.configure(fg_color=("#550000"),
-                              hover_color="#550000", text_color="#000000", state="disabled")
+                              hover_color="#550000", text_color="#000000")
             else:
                 AB2.configure(fg_color=("#550000"),
-                              hover_color="#550000", text_color="#000000", state="disabled")
+                              hover_color="#550000", text_color="#000000")
                 if AB1.cget("text") == info[question][1]:
                     AB1.configure(fg_color=("#005500"),
-                                  hover_color="#005500", text_color="#000000", state="disabled")
+                                  hover_color="#005500", text_color="#000000")
                     AB3.configure(fg_color=("#550000"),
-                                  hover_color="#550000", text_color="#000000", state="disabled")
+                                  hover_color="#550000", text_color="#000000")
                 else:
                     AB3.configure(fg_color=("#005500"),
-                                  hover_color="#005500", text_color="#000000", state="disabled")
+                                  hover_color="#005500", text_color="#000000")
                     AB1.configure(fg_color=("#550000"),
-                                  hover_color="#550000", text_color="#000000", state="disabled")
+                                  hover_color="#550000", text_color="#000000")
 
         case 3:
             if AB3.cget("text") == info[question][1]:
                 correct += 1
                 AB3.configure(fg_color=("#005500"),
-                              hover_color="#005500", text_color="#000000", state="disabled")
+                              hover_color="#005500", text_color="#000000")
                 AB2.configure(fg_color=("#550000"),
-                              hover_color="#550000", text_color="#000000", state="disabled")
+                              hover_color="#550000", text_color="#000000")
                 AB1.configure(fg_color=("#550000"),
-                              hover_color="#550000", text_color="#000000", state="disabled")
+                              hover_color="#550000", text_color="#000000")
             else:
                 AB3.configure(fg_color=("#550000"),
-                              hover_color="#550000", text_color="#000000", state="disabled")
+                              hover_color="#550000", text_color="#000000")
                 if AB1.cget("text") == info[question][1]:
                     AB1.configure(fg_color=("#005500"),
-                                  hover_color="#005500", text_color="#000000", state="disabled")
+                                  hover_color="#005500", text_color="#000000")
                     AB2.configure(fg_color=("#550000"),
-                                  hover_color="#550000", text_color="#000000", state="disabled")
+                                  hover_color="#550000", text_color="#000000")
                 else:
                     AB2.configure(fg_color=("#005500"),
-                                  hover_color="#005500", text_color="#000000", state="disabled")
+                                  hover_color="#005500", text_color="#000000")
                     AB1.configure(fg_color=("#550000"),
-                                  hover_color="#550000", text_color="#000000", state="disabled")
+                                  hover_color="#550000", text_color="#000000")
+    AB1.configure(state="disabled")
+    AB2.configure(state="disabled")
+    AB3.configure(state="disabled")
     ContBtn.configure(state="normal")
 
 
@@ -267,6 +270,7 @@ def Menu(tk=None):
         app.iconbitmap("./icons/icon.ico")
         app.title("Menu")
         set_appearance_mode("dark")
+        # binds Esc key to close the app
         app.bind("<Escape>", lambda x: sys.exit())
 
         Title = CTkLabel(master=app, text="Flash Card Project",
