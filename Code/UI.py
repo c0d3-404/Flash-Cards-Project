@@ -97,7 +97,7 @@ def question_widow(tk=None, Qnum=1, ArrayValue=0):
     Abutton3.place(relx=0.5, rely=0.5, anchor="center")
 
     ContBtn = CTkButton(master=Quiz, text="Continue",
-                        fg_color="#555555", text_color="#000000", command=lambda: cont(Quiz, Qnum),  state="disabled")
+                        fg_color="#555555", text_color="#000000", command=lambda: cont(Quiz, Qnum, correct),  state="disabled")
     ContBtn.place(relx=0.5, rely=0.6, anchor="center")
     ExitBtn = CTkButton(master=Quiz, text="Exit",
                         fg_color="#550000", text_color="#000000", command=lambda: Menu(Quiz)).place(relx=0.5, rely=0.7, anchor="center")
@@ -113,10 +113,10 @@ def update(Quiz, TimerLabel):
         pass
 
 
-def cont(tk, Qnum):
+def cont(tk, Qnum, correct):
     num = Qnum
     if num >= 9:
-        endScreen(tk)
+        endScreen(correct, tk)
     else:
         num += 1
         question_widow(None, num, randint(0, len(info)-1))
@@ -212,15 +212,17 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
     ContBtn.configure(state="normal")
 
 
-def endScreen(tk=None):
+def endScreen(NumCorrect, tk=None):
     hide(tk)
     EndScreen = CTkToplevel()
     EndScreen.geometry("500x400+750+300")
     EndScreen.resizable(False, False)
     EndScreen.title("Quiz End")
     EndScreen.bind("<Escape>", lambda x: sys.exit())
-    Title = CTkLabel(EndScreen, text='End screen', font=("Arial", 10))
-    Title.place(relx=0.5, rely=0.05, anchor="center")
+    Title = CTkLabel(EndScreen, text='End screen', font=(
+        "Arial", 10)).place(relx=0.5, rely=0.05, anchor="center")
+    correct = CTkLabel(EndScreen, text=f"You got {NumCorrect} answers correct", font=(
+        "Arial", 10)).place(relx=0.5, rely=0.35, anchor="center")
     ExitBtn = CTkButton(master=EndScreen, text="Menu",
                         fg_color="#550000", text_color="#000000", command=lambda: Menu(EndScreen)).place(relx=0.5, rely=0.7, anchor="center")
 
@@ -258,7 +260,6 @@ def changeHandler(value):
 
 
 def Menu(tk=None):
-    print(correct)
     global info
     info = FileHandling(file_name)
     global app
