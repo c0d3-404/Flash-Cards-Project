@@ -1,5 +1,5 @@
 from time import *
-from random import *
+from random import randint
 from PIL import Image
 import glob
 import os
@@ -27,7 +27,13 @@ def FileHandling(filename):
             temp_list.append(temp[i].capitalize())
             temp_list.append(temp[i+1].capitalize())
             information.append(temp_list)
-
+        temp = []
+        loops = 0
+        for j in information:
+            temp.append(j)
+            temp[loops].append(0)
+            loops += 1
+        information = temp
         return information
 
 

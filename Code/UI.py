@@ -6,10 +6,12 @@ from CTkMessagebox import CTkMessagebox
 file_name_old = 'keywords.txt'
 file_name = './Text/'+file_name_old
 correct = 0
+finished = False
 
 
 def Run(tk):
     # starts the question sequence
+    info = FileHandling(file_name)
     Qselection = randint(0, len(info)-1)
     loading_popup(tk, ArrayValue=Qselection)
 
@@ -28,11 +30,28 @@ def loading_popup(tk, Qnum=1, ArrayValue=0):
 def question_widow(tk=None, Qnum=1, ArrayValue=0):
     global correct
     global Quiz
+    global finished
     hide(tk)
 
     ab1 = str("Empty")
     ab2 = str("Empty")
     ab3 = str("Empty")
+    for i in range(len(info)):
+        if info[i][2] >= 2:
+            info[i][0] = None
+    global finished
+    finished = True
+    for i in info:
+        if i[0] != None:
+            finished = False
+    trys = 0
+    while info[ArrayValue][0] == None:
+        ArrayValue = randint(0, len(info)-1)
+        if trys >= 6:
+            endScreen(correct, Quiz)  # type: ignore
+            break
+        trys += 1
+
     value1 = randint(0, len(info)-1)
     value2 = randint(0, len(info)-1)
 
@@ -115,7 +134,7 @@ def update(Quiz, TimerLabel):
 
 def cont(tk, Qnum, correct):
     num = Qnum
-    if num >= 9:
+    if finished:
         endScreen(correct, tk)
     else:
         num += 1
@@ -141,6 +160,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
             global correct
             if AB1.cget("text") == info[question][1]:
                 correct += 1
+                info[question][2] += 1
                 AB1.configure(fg_color="#005500",
                               hover_color="#005500", text_color="#000000")
                 AB2.configure(fg_color=("#550000"),
@@ -164,6 +184,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
         case 2:
             if AB2.cget("text") == info[question][1]:
                 correct += 1
+                info[question][2] += 1
                 AB2.configure(fg_color=("#005500"),
                               hover_color="#005500", text_color="#000000")
                 AB1.configure(fg_color=("#550000"),
@@ -187,6 +208,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
         case 3:
             if AB3.cget("text") == info[question][1]:
                 correct += 1
+                info[question][2] += 1
                 AB3.configure(fg_color=("#005500"),
                               hover_color="#005500", text_color="#000000")
                 AB2.configure(fg_color=("#550000"),
@@ -220,9 +242,11 @@ def endScreen(NumCorrect, tk=None):
     EndScreen.title("Quiz End")
     EndScreen.bind("<Escape>", lambda x: sys.exit())
     Title = CTkLabel(EndScreen, text='End screen', font=(
-        "Arial", 10)).place(relx=0.5, rely=0.05, anchor="center")
+        "Arial", 15)).place(relx=0.5, rely=0.05, anchor="center")
     correct = CTkLabel(EndScreen, text=f"You got {NumCorrect} answers correct", font=(
-        "Arial", 10)).place(relx=0.5, rely=0.35, anchor="center")
+        "Arial", 15)).place(relx=0.5, rely=0.35, anchor="center")
+    correct = CTkLabel(EndScreen, text=f"You compleated it with a time of \n {get_timer()}", font=(
+        "Arial", 15)).place(relx=0.5, rely=0.45, anchor="center")
     ExitBtn = CTkButton(master=EndScreen, text="Menu",
                         fg_color="#550000", text_color="#000000", command=lambda: Menu(EndScreen)).place(relx=0.5, rely=0.7, anchor="center")
 
