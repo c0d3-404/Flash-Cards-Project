@@ -245,7 +245,7 @@ def endScreen(NumCorrect, tk=None):
         "Arial", 15)).place(relx=0.5, rely=0.05, anchor="center")
     correct = CTkLabel(EndScreen, text=f"You got {NumCorrect} answers correct", font=(
         "Arial", 15)).place(relx=0.5, rely=0.35, anchor="center")
-    correct = CTkLabel(EndScreen, text=f"You compleated it with a time of \n {get_timer()}", font=(
+    Time = CTkLabel(EndScreen, text=f"You compleated it with a time of \n {get_timer()}", font=(
         "Arial", 15)).place(relx=0.5, rely=0.45, anchor="center")
     ExitBtn = CTkButton(master=EndScreen, text="Menu",
                         fg_color="#550000", text_color="#000000", command=lambda: Menu(EndScreen)).place(relx=0.5, rely=0.7, anchor="center")
