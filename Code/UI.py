@@ -5,7 +5,7 @@ from CTkMessagebox import CTkMessagebox
 
 file_name_old = 'keywords.txt'
 file_name = './Text/'+file_name_old
-correct = 0
+incorrect = 0
 finished = False
 
 
@@ -28,7 +28,7 @@ def loading_popup(tk, Qnum=1, ArrayValue=0):
 
 
 def question_widow(tk=None, Qnum=1, ArrayValue=0):
-    global correct
+    global incorrect
     global Quiz
     global finished
     hide(tk)
@@ -116,7 +116,7 @@ def question_widow(tk=None, Qnum=1, ArrayValue=0):
     Abutton3.place(relx=0.5, rely=0.5, anchor="center")
 
     ContBtn = CTkButton(master=Quiz, text="Continue",
-                        fg_color="#555555", text_color="#000000", command=lambda: cont(Quiz, Qnum, correct),  state="disabled")
+                        fg_color="#555555", text_color="#000000", command=lambda: cont(Quiz, Qnum, incorrect),  state="disabled")
     ContBtn.place(relx=0.5, rely=0.6, anchor="center")
     ExitBtn = CTkButton(master=Quiz, text="Exit",
                         fg_color="#550000", text_color="#000000", command=lambda: Menu(Quiz)).place(relx=0.5, rely=0.7, anchor="center")
@@ -132,10 +132,10 @@ def update(Quiz, TimerLabel):
         pass
 
 
-def cont(tk, Qnum, correct):
+def cont(tk, Qnum, incorrect):
     num = Qnum
     if finished:
-        endScreen(correct, tk)
+        endScreen(incorrect, tk)
     else:
         num += 1
         question_widow(None, num, randint(0, len(info)-1))
@@ -157,9 +157,9 @@ def show(tk):
 def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
     match Buttton_Num:
         case 1:
-            global correct
+            global incorrect
             if AB1.cget("text") == info[question][1]:
-                correct += 1
+
                 info[question][2] += 1
                 AB1.configure(fg_color="#005500",
                               hover_color="#005500", text_color="#000000")
@@ -168,6 +168,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
                 AB3.configure(fg_color=("#550000"),
                               hover_color="#550000", text_color="#000000")
             else:
+                incorrect += 1
                 AB1.configure(fg_color=("#550000"),
                               hover_color="#550000", text_color="#000000")
                 if AB2.cget("text") == info[question][1]:
@@ -183,7 +184,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
 
         case 2:
             if AB2.cget("text") == info[question][1]:
-                correct += 1
+
                 info[question][2] += 1
                 AB2.configure(fg_color=("#005500"),
                               hover_color="#005500", text_color="#000000")
@@ -192,6 +193,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
                 AB3.configure(fg_color=("#550000"),
                               hover_color="#550000", text_color="#000000")
             else:
+                incorrect += 1
                 AB2.configure(fg_color=("#550000"),
                               hover_color="#550000", text_color="#000000")
                 if AB1.cget("text") == info[question][1]:
@@ -207,7 +209,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
 
         case 3:
             if AB3.cget("text") == info[question][1]:
-                correct += 1
+
                 info[question][2] += 1
                 AB3.configure(fg_color=("#005500"),
                               hover_color="#005500", text_color="#000000")
@@ -216,6 +218,7 @@ def Answer_Buttons(Buttton_Num, AB1, AB2, AB3, ContBtn, question):
                 AB1.configure(fg_color=("#550000"),
                               hover_color="#550000", text_color="#000000")
             else:
+                incorrect += 1
                 AB3.configure(fg_color=("#550000"),
                               hover_color="#550000", text_color="#000000")
                 if AB1.cget("text") == info[question][1]:
@@ -243,7 +246,7 @@ def endScreen(NumCorrect, tk=None):
     EndScreen.bind("<Escape>", lambda x: sys.exit())
     Title = CTkLabel(EndScreen, text='End screen', font=(
         "Arial", 15)).place(relx=0.5, rely=0.05, anchor="center")
-    correct = CTkLabel(EndScreen, text=f"You got {NumCorrect} answers correct", font=(
+    correct = CTkLabel(EndScreen, text=f"You got {NumCorrect} answers incorrect", font=(
         "Arial", 15)).place(relx=0.5, rely=0.35, anchor="center")
     Time = CTkLabel(EndScreen, text=f"You compleated it with a time of \n {get_timer()}", font=(
         "Arial", 15)).place(relx=0.5, rely=0.45, anchor="center")
@@ -265,12 +268,12 @@ def filePicker(files):
     FilePicker.title("File Picker")
     FilePicker.bind("<Escape>", lambda x: sys.exit())
     Title = CTkLabel(
-        master=FilePicker, text="Which file would you like to load?", font=("Arial", 10))
+        master=FilePicker, text="Which file would you like to load?", font=("Arial", 20))
     Title.place(relx=0.5, rely=0.05, anchor="center")
 
     Options = CTkComboBox(FilePicker, values=files,
                           variable="Unselected", command=changeHandler)  # type: ignore
-    Options.place(relx=0.5, rely=0.5, anchor="center")
+    Options.place(relx=0.5, rely=0.35, anchor="center")
 
     ExitBtn = CTkButton(master=FilePicker, text="Menu",
                         fg_color="#550000", text_color="#000000", command=lambda: Menu(FilePicker)).place(relx=0.5, rely=0.7, anchor="center")

@@ -37,21 +37,6 @@ def FileHandling(filename):
         return information
 
 
-def start_timer():
-    # starts/resets the timer
-    global start
-    start = time()
-
-
-def get_timer():
-    # get the timer at the perticular time
-    end = time()
-    now = end-start
-    Timer = gmtime(now)
-    Time = strftime(Format, Timer)
-    return Time
-
-
 def getFiles():
     temp = []
     current_dir = os.path.dirname(os.path.realpath(__file__))
@@ -66,3 +51,18 @@ def getFiles():
         temp.append(file)
 
     return temp
+
+
+def start_timer():
+    # starts/resets the timer
+    global start
+    start = time()
+
+
+def get_timer():
+    # get the timer at the perticular time
+    end = time()
+    now = end-start
+    Timer = gmtime(now)
+    Time = strftime(Format, Timer)
+    return Time
